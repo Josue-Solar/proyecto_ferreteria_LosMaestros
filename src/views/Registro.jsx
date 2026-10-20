@@ -1,7 +1,7 @@
 import Header from '../components/Header'
-import Footer from '../components/Footer'
-import Seccion from '../components/Seccion'
-import FormularioRegistro from '../components/FormularioRegistro'
+import Footer from '../components/organisms/Footer'
+import Seccion from '../components/molecules/Seccion'
+import FormularioRegistro from '../components/organisms/FormularioRegistro'
 
 import { itemsMenu } from '../data/itemsMenu'
 

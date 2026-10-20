@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom'
 
 import Header from '../components/Header'
-import Footer from '../components/Footer'
-import Seccion from '../components/Seccion'
-import GaleriaProductos from '../components/GaleriaProductos'
+import Footer from '../components/organisms/Footer'
+import Seccion from '../components/molecules/Seccion'
+import GaleriaProductos from '../components/organisms/GaleriaProductos'
 
 import { itemsMenu } from '../data/itemsMenu'
 import { productos } from '../data/productos'

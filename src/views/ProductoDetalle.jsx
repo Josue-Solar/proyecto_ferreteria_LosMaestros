@@ -2,8 +2,8 @@ import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 
 import Header from '../components/Header'
-import Footer from '../components/Footer'
-import Seccion from '../components/Seccion'
+import Footer from '../components/organisms/Footer'
+import Seccion from '../components/molecules/Seccion'
 
 import { itemsMenu } from '../data/itemsMenu'
 import { productos } from '../data/productos'
