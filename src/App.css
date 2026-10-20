@@ -157,7 +157,7 @@ body {
 
 /* IMAGENES "Todavia lo tengo que arreglar." */
 
-.btn {
+a.btn {
     text-decoration: none;
 
     color: #302e2b;
@@ -384,4 +384,99 @@ body {
 
 .form-registro .btn {
     color: #fff;
+}
+
+/* FAVORITOS */
+
+.btn-favorito {
+    background-color: #999b9c;
+    color: #0c0c0c;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    margin-left: 8px;
+    cursor: pointer;
+}
+
+.btn-favorito.activo {
+    background-color: #bb7915;
+    color: #ffffff;
+}
+
+/* BOTON DE TEMA */
+
+#menu-principal ul {
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+#menu-principal ul li button {
+    color: #302e2b;
+    background-color: #e0a800;
+    padding: 7px 14px;
+    border: none;
+    border-radius: 3px;
+    font: inherit;
+    line-height: normal;
+    cursor: pointer;
+}
+
+#menu-principal ul li button:hover {
+    background-color: white;
+}
+
+
+/* TEMA OSCURO :p */
+
+[data-bs-theme="dark"] body {
+    background-color: #1c1b19;
+    color: #e9e6e1;
+}
+
+[data-bs-theme="dark"] .seccion {
+    background-color: #2a2825;
+}
+
+[data-bs-theme="dark"] .tarjeta {
+    background-color: #35322e;
+    border-color: #6b665f;
+}
+
+[data-bs-theme="dark"] .tarjeta:hover {
+    border-color: #e0a800;
+}
+
+[data-bs-theme="dark"] .precio {
+    color: #f3efe9;
+}
+
+[data-bs-theme="dark"] .btn-ver {
+    background-color: #4a4640;
+}
+
+[data-bs-theme="dark"] .btn-ver:hover {
+    background-color: #e0a800;
+    color: #302e2b;
+}
+
+[data-bs-theme="dark"] .btn-outline-dark {
+    --bs-btn-color: #e9e6e1;
+    --bs-btn-border-color: #e9e6e1;
+    --bs-btn-hover-color: #302e2b;
+    --bs-btn-hover-bg: #e9e6e1;
+    --bs-btn-hover-border-color: #e9e6e1;
+    --bs-btn-active-color: #302e2b;
+    --bs-btn-active-bg: #e9e6e1;
+    --bs-btn-active-border-color: #e9e6e1;
+}
+
+[data-bs-theme="dark"] .form-registro .btn-dark {
+    --bs-btn-bg: #e0a800;
+    --bs-btn-border-color: #e0a800;
+    --bs-btn-hover-bg: #ffc400;
+    --bs-btn-hover-border-color: #ffc400;
+    --bs-btn-active-bg: #ffc400;
+    --bs-btn-active-border-color: #ffc400;
+    color: #302e2b;
 }

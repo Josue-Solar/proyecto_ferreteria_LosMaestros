@@ -1,7 +1,12 @@
 import { Link } from 'react-router-dom'
 import logo from '../assets/img/fierro.png'
 
+import BotonTema from './atoms/BotonTema'
+import { useTema } from '../context/TemaContext'
+
 function Header({ titulo, subtitulo, itemsMenu }) {
+  const { tema, alternarTema } = useTema()
+
   return (
     <header id="encabezado">
       <video
@@ -27,6 +32,9 @@ function Header({ titulo, subtitulo, itemsMenu }) {
               <Link to={item.href}>{item.label}</Link>
             </li>
           ))}
+          <li>
+            <BotonTema oscuro={tema === 'dark'} onClick={alternarTema} />
+          </li>
         </ul>
       </nav>
     </header>

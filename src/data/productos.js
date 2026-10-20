@@ -19,6 +19,7 @@ export const productos = [
     descripcion: 'Motor potente para cortes rápidos y precisos en madera.',
     detalle: 'Motor potente de 1400W para cortes rápidos y precisos en madera. Profundidad y ángulo de corte ajustables, disco de 185mm incluido, 4800 rpm sin carga.',
     precio: 49990,
+    categoria: 'Herramientas eléctricas',
   },
   {
     id: 'sierra-circular-total-tools',
@@ -27,6 +28,7 @@ export const productos = [
     descripcion: 'Ideal para trabajos de uso intensivo en obra.',
     detalle: 'Diseñada para uso intensivo en obra, con carcasa reforzada y buena disipación de calor.',
     precio: 54990,
+    categoria: 'Herramientas eléctricas',
   },
   {
     id: 'set-cinceles',
@@ -35,6 +37,7 @@ export const productos = [
     descripcion: 'Acero templado para tallado y ajuste fino en carpintería.',
     detalle: 'Acero templado para tallado y ajuste fino en carpintería. Incluye 3 anchos distintos.',
     precio: 12990,
+    categoria: 'Herramientas manuales',
   },
   {
     id: 'cincel-biselado',
@@ -43,6 +46,7 @@ export const productos = [
     descripcion: 'Filo de precisión, mango ergonómico antideslizante.',
     detalle: 'Filo de precisión con mango ergonómico antideslizante.',
     precio: 6990,
+    categoria: 'Herramientas manuales',
   },
   {
     id: 'serrucho-tradicional',
@@ -51,6 +55,7 @@ export const productos = [
     descripcion: 'Herramienta manual clásica, ideal para cortes rectos.',
     detalle: 'Herramienta manual clásica, ideal para cortes rectos en madera blanda y dura.',
     precio: 9990,
+    categoria: 'Herramientas manuales',
   },
   {
     id: 'taladro-percutor',
@@ -59,6 +64,7 @@ export const productos = [
     descripcion: 'Perfora madera, metal y hormigón con velocidad variable.',
     detalle: 'Perfora madera, metal y hormigón con velocidad variable. Incluye mango auxiliar y tope de profundidad.',
     precio: 39990,
+    categoria: 'Herramientas eléctricas',
   },
   {
     id: 'llave-paso-pvc',
@@ -67,6 +73,7 @@ export const productos = [
     descripcion: 'Para instalaciones de agua potable, cierre hermético.',
     detalle: 'Para instalaciones de agua potable, cierre hermético. Resistente a la corrosión.',
     precio: 2990,
+    categoria: 'Gasfitería',
   },
   {
     id: 'cinta-aislante',
@@ -75,6 +82,7 @@ export const productos = [
     descripcion: 'Aislación segura para conexiones e instalaciones eléctricas.',
     detalle: 'Aislación segura para conexiones e instalaciones eléctricas. Resistente a la humedad.',
     precio: 3490,
+    categoria: 'Electricidad',
   },
   {
     id: 'saco-cemento',
@@ -83,6 +91,7 @@ export const productos = [
     descripcion: 'Ideal para obras menores, reparaciones y trabajos de albañilería.',
     detalle: 'Ideal para obras menores, reparaciones y trabajos de albañilería.',
     precio: 5490,
+    categoria: 'Materiales de construcción',
   },
   {
     id: 'barniz-madera',
@@ -91,6 +100,7 @@ export const productos = [
     descripcion: 'Protege y realza el color natural de la madera.',
     detalle: 'Protege y realza el color natural de la madera. Secado rápido.',
     precio: 8990,
+    categoria: 'Materiales de construcción',
   },
   {
     id: 'destornillador-set',
@@ -99,6 +109,7 @@ export const productos = [
     descripcion: 'Puntas magnetizadas y mangos ergonómicos para uso general.',
     detalle: 'Puntas magnetizadas y mangos ergonómicos para uso general.',
     precio: 5990,
+    categoria: 'Herramientas manuales',
   },
   {
     id: 'huincha-medir',
@@ -107,5 +118,6 @@ export const productos = [
     descripcion: 'Cinta métrica con freno automático y carcasa resistente a caídas.',
     detalle: 'Cinta métrica de 5 metros con freno automático y carcasa resistente a caídas.',
     precio: 3990,
+    categoria: 'Herramientas manuales',
   },
 ]
