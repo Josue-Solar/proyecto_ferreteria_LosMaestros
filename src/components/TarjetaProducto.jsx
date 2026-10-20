@@ -1,12 +1,10 @@
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
-function TarjetaProducto({ id, imagen, nombre, descripcion, precio }) {
-  const [guardado, setGuardado] = useState(false)
+import BotonFavorito from './atoms/BotonFavorito'
+import { useFavoritos } from '../context/FavoritosContext'
 
-  const alternarGuardado = () => {
-    setGuardado(!guardado)
-  }
+function TarjetaProducto({ id, imagen, nombre, descripcion, precio }) {
+  const { esFavorito, alternarFavorito } = useFavoritos()
 
   return (
     <article className="tarjeta">
@@ -24,20 +22,11 @@ function TarjetaProducto({ id, imagen, nombre, descripcion, precio }) {
         Ver detalle
       </Link>
 
-      <button
-        onClick={alternarGuardado}
-        style={{
-          backgroundColor: guardado ? '#bb7915' : '#999b9c',
-          color: guardado ? '#ffffff' : '#0c0c0c',
-          fontWeight: 'bold',
-          borderRadius: '4px',
-          border: 'none',
-          padding: '8px 12px',
-          marginLeft: '8px',
-        }}
-      >
-        {guardado ? 'Guardado' : 'Guardar'}
-      </button>
+      <BotonFavorito
+        activo={esFavorito(id)}
+        onClick={() => alternarFavorito(id)}
+        nombreProducto={nombre}
+      />
     </article>
   )
 }
