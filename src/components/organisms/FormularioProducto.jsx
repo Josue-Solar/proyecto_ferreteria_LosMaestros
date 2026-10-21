@@ -1,4 +1,7 @@
-import { Form } from "react-bootstrap"
+import { useState } from "react"
+import { Button, Col, Form, Row } from "react-bootstrap"
+import Formulario from "../molecules/Formulario"
+import { CATEGORIAS, UNIDADES_VENTA } from "../../data/opcionesProducto"
 
 const valoresIniciales = { nombre: '', precio: '', categoria: '', marca: '', stock: '', descripcion: '' }
 
@@ -14,6 +17,12 @@ function FormularioProducto({ onAgregar }) {
         setMensaje('')
     }
 
+    const limpiar = () => {
+    setValores(valoresIniciales)
+    setErrores({})
+    setRegistrado('')
+  }
+
     const manejarEnvio = (e) => {
         e.preventDefault()
         const nuevosErrores = validarProducto(valores)
@@ -21,14 +30,19 @@ function FormularioProducto({ onAgregar }) {
         if (Object.keys(nuevosErrores).length > 0) return   // hay errores: no seguimos
 
         onAgregar({
-            id: `prod-${Date.now()}`,        // OJO: string, ver aviso abajo
-            imagen: imgGenerica,             // import imgGenerica from '../../assets/img/producto-generico.png'
-            nombre: valores.nombre.trim(),
-            descripcion: valores.descripcion.trim(),
-            precio: Number(valores.precio),  // los inputs entregan texto
-            stock: Number(valores.stock) || 0,
-            categoria: valores.categoria.trim()
+          id: `prod-${Date.now()}`, // string: useParams() siempre entrega texto
+          imagen: imgGenerica, // imagen genérica, no se suben archivos
+          nombre: valores.nombre.trim(),
+          descripcion,
+          detalle: descripcion,
+          precio: Number(valores.precio), // los inputs entregan texto
+          categoria: valores.categoria,
+          marca: valores.marca.trim(),
+          sku: valores.sku.trim().toUpperCase(),
+          unidad: valores.unidad,
+          stock: Number(valores.stock),
         })
+
         setMensaje(`Producto "${valores.nombre.trim()}" agregado al catálogo`)
         setValores(valoresIniciales)
     }
@@ -54,15 +68,14 @@ function FormularioProducto({ onAgregar }) {
         <Col md={4}>
           <Formulario
             className="mb-3"
-            controlId="productoPrecio"
-            label="Precio (CLP)"
-            name="precio"
-            type="number"
-            min="1"
-            placeholder="Ej: 7990"
-            value={valores.precio}
+            controlId="productoSku"
+            label="Código SKU"
+            name="sku"
+            type="text"
+            placeholder="LM-0001"
+            value={valores.sku}
             onChange={manejarCambio}
-            error={errores.precio}
+            error={errores.sku}
           />
         </Col>
       </Row>
@@ -88,7 +101,17 @@ function FormularioProducto({ onAgregar }) {
           </Formulario>
         </Col>
         <Col md={4}>
-          
+          <Formulario
+            className="mb-3"
+            controlId="productoMarca"
+            label="Marca"
+            name="marca"
+            type="text"
+            placeholder="Ej: Stanley"
+            value={valores.marca}
+            onChange={manejarCambio}
+            error={errores.marca}
+          />
         </Col>
         <Col md={4}>
           <Formulario
@@ -113,7 +136,18 @@ function FormularioProducto({ onAgregar }) {
 
       <Row>
         <Col md={6}>
-          
+          <Formulario
+            className="mb-3"
+            controlId="productoPrecio"
+            label="Precio (CLP)"
+            name="precio"
+            type="number"
+            min="1"
+            placeholder="Ej: 7990"
+            value={valores.precio}
+            onChange={manejarCambio}
+            error={errores.precio}
+          />
         </Col>
         <Col md={6}>
           <Formulario

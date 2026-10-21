@@ -9,3 +9,5 @@ function Formulario({ className, controlId, label, error, children, ...propsCont
     </Form.Group>
   )
 }
+
+export default Formulario
