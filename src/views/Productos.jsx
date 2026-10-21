@@ -7,7 +7,6 @@ import GaleriaProductos from '../components/organisms/GaleriaProductos'
 import BarraFiltros from '../components/molecules/BarraFiltros'
 
 import { itemsMenu } from '../data/itemsMenu'
-import { productos } from '../data/productos'
 import { useFavoritos } from '../context/FavoritosContext'
 import {
   FILTROS_INICIALES,
@@ -15,7 +14,7 @@ import {
   obtenerCategorias,
 } from '../utils/filtros'
 
-function Productos() {
+function Productos({ productos }) {
   const [filtros, setFiltros] = useState(FILTROS_INICIALES)
   const { favoritos } = useFavoritos()
 

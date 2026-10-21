@@ -6,10 +6,9 @@ import Footer from '../components/organisms/Footer'
 import Seccion from '../components/molecules/Seccion'
 
 import { itemsMenu } from '../data/itemsMenu'
-import { productos } from '../data/productos'
 import { agregarAlCarrito } from '../utils/carrito'
 
-function ProductoDetalle() {
+function ProductoDetalle({ productos }) {
   const { id } = useParams()
   const producto = productos.find((p) => p.id === id)
 

@@ -1,0 +1,22 @@
+/* Estilos de las páginas 404, perfil y panel de control */
+
+.codigo-404 {
+    font-size: 4rem;
+    font-weight: bold;
+    color: #e0a800;
+    line-height: 1.1;
+    margin: 10px 0;
+}
+
+/* Botón principal de los formularios del panel y del login en tema oscuro
+   (misma paleta que ya usa .form-registro en App.css) */
+[data-bs-theme="dark"] .form-panel .btn-dark,
+[data-bs-theme="dark"] .tarjeta-detalle .btn-dark {
+    --bs-btn-bg: #e0a800;
+    --bs-btn-border-color: #e0a800;
+    --bs-btn-hover-bg: #ffc400;
+    --bs-btn-hover-border-color: #ffc400;
+    --bs-btn-active-bg: #ffc400;
+    --bs-btn-active-border-color: #ffc400;
+    color: #302e2b;
+}
