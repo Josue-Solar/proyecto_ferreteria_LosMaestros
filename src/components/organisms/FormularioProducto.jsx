@@ -51,7 +51,7 @@ function FormularioProducto({ productos, productoEditando, onAgregar, onActualiz
     e.preventDefault()
     // Al editar, el SKU del propio producto no cuenta como "repetido"
     const otrosProductos = productos.filter((p) => p.id !== productoEditando?.id)
-    const nuevosErrores = validarProducto(valores)
+    const nuevosErrores = validarProducto(valores, otrosProductos)
     setErrores(nuevosErrores)
     if (Object.keys(nuevosErrores).length > 0) return   // hay errores: no seguimos
 

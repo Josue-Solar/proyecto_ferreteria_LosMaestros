@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom'
-import logo from '../assets/img/fierro.png'
-import videoBanner from '../assets/video/videoFondo.mp4'
+import logo from '../../assets/img/fierro.png'
+import videoBanner from '../../assets/video/videoFondo.mp4'
 
-import BotonTema from './atoms/BotonTema'
-import { useTema } from '../context/TemaContext'
+import BotonTema from '../atoms/BotonTema'
+import { useTema } from '../../context/TemaContext'
+import { contarUnidadesCarrito } from '../../utils/carrito'
 
 function Header({ titulo, subtitulo, itemsMenu }) {
   const { tema, alternarTema } = useTema()
@@ -30,7 +31,10 @@ function Header({ titulo, subtitulo, itemsMenu }) {
         <ul>
           {itemsMenu.map((item) => (
             <li key={item.href}>
-              <Link to={item.href}>{item.label}</Link>
+              <Link to={item.href}>
+                {item.label}
+                {item.href === '/carrito' && ` (${contarUnidadesCarrito()})`}
+              </Link>
             </li>
           ))}
           <li>

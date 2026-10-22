@@ -1,5 +1,3 @@
-import { href, parsePath } from "react-router-dom"
-
 export const itemsMenu = [
   { href: '/', label: 'Inicio' },
   { href: '/productos', label: 'Productos' },
@@ -7,4 +5,5 @@ export const itemsMenu = [
   { href: '/login', label: 'Iniciar Sesión' },
   { href: '/carrito', label: '🛒 Carrito' },
   { href: '/perfil', label: 'Mi Perfil' },
+  { href: '/panel', label: 'Panel' },
 ]

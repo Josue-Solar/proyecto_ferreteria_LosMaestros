@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 
-import BotonFavorito from './atoms/BotonFavorito'
-import { useFavoritos } from '../context/FavoritosContext'
+import BotonFavorito from '../atoms/BotonFavorito'
+import { useFavoritos } from '../../context/FavoritosContext'
 
 function TarjetaProducto({ id, imagen, nombre, descripcion, precio }) {
   const { esFavorito, alternarFavorito } = useFavoritos()

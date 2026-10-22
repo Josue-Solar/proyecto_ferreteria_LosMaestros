@@ -9,6 +9,7 @@ import Login from './views/Login'
 import NotFound from './views/NotFound'
 import PanelControl from './views/PanelControl'
 import Perfil from './views/Perfil'
+import Carrito from './views/Carrito'
 import RutaProtegida from './routes/RutaProtegida'
 
 import { productos as productosIniciales } from './data/productos'
@@ -59,6 +60,7 @@ function App() {
       <Route path="/productos" element={<Productos productos={productos} />} />
       <Route path="/producto/:id" element={<ProductoDetalle productos={productos} />} />
       <Route path="/registro" element={<Registro />} />
+      <Route path="/carrito" element={<Carrito />} />
       <Route path="/login" element={<Login />} />
 
       <Route

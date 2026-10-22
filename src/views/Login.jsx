@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Alert from 'react-bootstrap/Alert'
@@ -11,9 +11,13 @@ import { iniciarSesion } from '../utils/sesion'
 
 function Login() {
   const navigate = useNavigate()
+  const location = useLocation()
   const [usuario, setUsuario] = useState('')
   const [clave, setClave] = useState('')
   const [error, setError] = useState('')
+
+  // Si RutaProtegida nos envió aquí, volvemos a la página que se quería ver
+  const destino = location.state?.desde ?? '/panel'
 
   const manejarEnvio = (e) => {
     e.preventDefault()
@@ -24,7 +28,7 @@ function Login() {
     }
 
     if (iniciarSesion(usuario, clave)) {
-      navigate('/panel')
+      navigate(destino, { replace: true })
     } else {
       setError('Usuario o contraseña incorrectos')
     }

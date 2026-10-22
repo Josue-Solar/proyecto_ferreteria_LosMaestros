@@ -1,4 +1,4 @@
-import TarjetaProducto from '../TarjetaProducto'
+import TarjetaProducto from '../molecules/TarjetaProducto'
 
 function GaleriaProductos({ productos }) {
   return (

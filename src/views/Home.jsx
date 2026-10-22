@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-import Header from '../components/Header'
+import Header from '../components/organisms/Header'
 import Footer from '../components/organisms/Footer'
 import Seccion from '../components/molecules/Seccion'
 import GaleriaProductos from '../components/organisms/GaleriaProductos'

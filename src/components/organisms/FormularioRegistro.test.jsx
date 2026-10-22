@@ -9,6 +9,8 @@ const datosValidos = {
   telefono: '+56912345678',
   correo: 'pepito@gmail.com',
   fechaNacimiento: '2000-01-15',
+  tipoCliente: 'Particular',
+  comuna: 'La Serena',
 };
 
 // Función auxiliar: escribe en todos los campos del formulario
@@ -18,6 +20,8 @@ const llenarFormulario = (datos) => {
   fireEvent.change(screen.getByLabelText(/Teléfono/i), { target: { value: datos.telefono } });
   fireEvent.change(screen.getByLabelText(/Correo electrónico/i), { target: { value: datos.correo } });
   fireEvent.change(screen.getByLabelText(/Fecha de nacimiento/i), { target: { value: datos.fechaNacimiento } });
+  fireEvent.change(screen.getByLabelText(/Tipo de cliente/i), { target: { value: datos.tipoCliente } });
+  fireEvent.change(screen.getByLabelText(/Comuna/i), { target: { value: datos.comuna } });
 };
 
 

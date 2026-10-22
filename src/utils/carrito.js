@@ -35,3 +35,18 @@ export function agregarAlCarrito(producto, cantidad) {
 export function contarUnidadesCarrito() {
   return obtenerCarrito().reduce((total, item) => total + item.cantidad, 0)
 }
+
+export function eliminarDelCarrito(id) {
+  guardarCarrito(obtenerCarrito().filter((item) => item.id !== id))
+}
+
+export function vaciarCarrito() {
+  guardarCarrito([])
+}
+
+export function calcularTotalCarrito() {
+  return obtenerCarrito().reduce(
+    (total, item) => total + item.precio * item.cantidad,
+    0
+  )
+}

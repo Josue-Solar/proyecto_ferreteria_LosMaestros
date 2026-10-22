@@ -1,3 +1,5 @@
+export const TIPOS_CLIENTE = ['Particular', 'Maestro o contratista', 'Empresa constructora']
+
 // Calculo de edad en anios a partir de fecha
 export function calcularEdad(fechaTexto, hoy = new Date()) {
   const [anio, mes, dia] = fechaTexto.split('-').map(Number)
@@ -54,6 +56,22 @@ export function validarRegistro(valores, hoy = new Date()) {
     errores.fechaNacimiento = 'La fecha de nacimiento es obligatoria'
   } else if (calcularEdad(valores.fechaNacimiento, hoy) < 18) {
     errores.fechaNacimiento = 'Debes ser mayor de 18 años para registrarte'
+  }
+
+  // Campos propios de la ferretería: tipo de cliente (lista cerrada) y comuna
+  if (!valores.tipoCliente) {
+    errores.tipoCliente = 'Selecciona el tipo de cliente'
+  } else if (!TIPOS_CLIENTE.includes(valores.tipoCliente)) {
+    errores.tipoCliente = 'Selecciona una opción válida'
+  }
+
+  const comuna = valores.comuna.trim()
+  if (!comuna) {
+    errores.comuna = 'La comuna es obligatoria'
+  } else if (comuna.length < 3 || comuna.length > 40) {
+    errores.comuna = 'La comuna debe tener entre 3 y 40 caracteres'
+  } else if (!/^[A-Za-zÁÉÍÓÚÜáéíóúüÑñ\s]+$/.test(comuna)) {
+    errores.comuna = 'La comuna solo debe contener letras'
   }
 
   return errores

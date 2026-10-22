@@ -1,4 +1,4 @@
-import Header from '../Header'
+import Header from '../organisms/Header'
 import Footer from '../organisms/Footer'
 import { itemsMenu } from '../../data/itemsMenu'
 

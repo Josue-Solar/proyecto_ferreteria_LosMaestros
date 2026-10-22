@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Alert from 'react-bootstrap/Alert'
 
-import { validarRegistro } from '../../utils/validaciones'
+import { validarRegistro, TIPOS_CLIENTE } from '../../utils/validaciones'
 
 const valoresIniciales = {
   nombre: '',
@@ -11,6 +11,8 @@ const valoresIniciales = {
   telefono: '',
   correo: '',
   fechaNacimiento: '',
+  tipoCliente: '',
+  comuna: '',
 }
 
 function FormularioRegistro() {
@@ -115,6 +117,37 @@ function FormularioRegistro() {
           isInvalid={!!errores.fechaNacimiento}
         />
         <Form.Control.Feedback type="invalid">{errores.fechaNacimiento}</Form.Control.Feedback>
+      </Form.Group>
+
+      <Form.Group className="mb-3" controlId="registroTipoCliente">
+        <Form.Label>Tipo de cliente</Form.Label>
+        <Form.Select
+          name="tipoCliente"
+          value={valores.tipoCliente}
+          onChange={manejarCambio}
+          isInvalid={!!errores.tipoCliente}
+        >
+          <option value="">Seleccione una opción</option>
+          {TIPOS_CLIENTE.map((tipo) => (
+            <option key={tipo} value={tipo}>
+              {tipo}
+            </option>
+          ))}
+        </Form.Select>
+        <Form.Control.Feedback type="invalid">{errores.tipoCliente}</Form.Control.Feedback>
+      </Form.Group>
+
+      <Form.Group className="mb-3" controlId="registroComuna">
+        <Form.Label>Comuna</Form.Label>
+        <Form.Control
+          type="text"
+          name="comuna"
+          placeholder="Ej: La Serena"
+          value={valores.comuna}
+          onChange={manejarCambio}
+          isInvalid={!!errores.comuna}
+        />
+        <Form.Control.Feedback type="invalid">{errores.comuna}</Form.Control.Feedback>
       </Form.Group>
 
       <Button variant="dark" type="submit" className="me-2">

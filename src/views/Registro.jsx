@@ -1,4 +1,4 @@
-import Header from '../components/Header'
+import Header from '../components/organisms/Header'
 import Footer from '../components/organisms/Footer'
 import Seccion from '../components/molecules/Seccion'
 import FormularioRegistro from '../components/organisms/FormularioRegistro'
