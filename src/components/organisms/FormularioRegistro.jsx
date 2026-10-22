@@ -11,6 +11,7 @@ const valoresIniciales = {
   apellido:'',
   telefono: '',
   correo: '',
+  contrasenia: '',
   fechaNacimiento: '',
   tipoCliente: '',
   region: '',
@@ -109,6 +110,20 @@ function FormularioRegistro() {
           isInvalid={!!errores.correo}
         />
         <Form.Control.Feedback type="invalid">{errores.correo}</Form.Control.Feedback>
+      </Form.Group>
+
+      <Form.Group className="mb-3" controlId="registroContrasenia">
+        <Form.Label>Cree contraseña</Form.Label>
+        <Form.Control
+          type="password"
+          name="contrasenia"
+          placeholder="ej: Admin.1234"
+          value={valores.contrasenia}
+          onChange={manejarCambio}
+          isInvalid={!!errores.contrasenia}
+        />
+
+        <Form.Control.Feedback type='invalid'>{errores.contrasenia}</Form.Control.Feedback>
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="registroFechaNacimiento">
