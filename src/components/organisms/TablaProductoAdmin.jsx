@@ -2,7 +2,7 @@ import Table from 'react-bootstrap/Table'
 
 import FilaProductoAdmin from '../molecules/FilaProductoAdmin'
 
-function TablaProductoAdmin({ productos, onEliminar }) {
+function TablaProductoAdmin({ productos, idEditando, onEditar, onEliminar }) {
   if (productos.length === 0) {
     return <p className="titulo">No hay productos en el catálogo.</p>
   }
@@ -27,6 +27,8 @@ function TablaProductoAdmin({ productos, onEliminar }) {
           <FilaProductoAdmin
             key={producto.id}
             producto={producto}
+            editando={producto.id === idEditando}
+            onEditar={onEditar}
             onEliminar={onEliminar}
           />
         ))}

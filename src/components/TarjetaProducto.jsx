@@ -11,10 +11,10 @@ function TarjetaProducto({ id, imagen, nombre, descripcion, precio }) {
       <div className="espacio-imagen">
         <Link to={`/producto/${id}`}>
           <img src={imagen} alt={nombre} />
+          {nombre}
         </Link>
       </div>
 
-      <h3>{nombre}</h3>
       <p className="descripcion">{descripcion}</p>
       <p className="precio">${precio.toLocaleString('es-CL')}</p>
 

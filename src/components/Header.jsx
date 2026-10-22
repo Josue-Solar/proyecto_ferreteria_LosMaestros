@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import logo from '../assets/img/fierro.png'
+import videoBanner from '../assets/video/videoFondo.mp4'
 
 import BotonTema from './atoms/BotonTema'
 import { useTema } from '../context/TemaContext'
@@ -11,7 +12,7 @@ function Header({ titulo, subtitulo, itemsMenu }) {
     <header id="encabezado">
       <video
         className="video-fondo"
-        src="/video/videoFondo.mp4"
+        src={videoBanner}
         autoPlay
         muted
         loop

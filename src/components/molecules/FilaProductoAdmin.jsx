@@ -2,9 +2,10 @@ import Button from 'react-bootstrap/Button'
 
 import InsigniaStock from '../atoms/InsigniaStock'
 
-function FilaProductoAdmin({ producto, onEliminar }) {
+function FilaProductoAdmin({ producto, editando, onEditar, onEliminar }) {
   return (
-    <tr>
+    // "table-warning" pinta la fila amarilla mientras se está editando
+    <tr className={editando ? 'table-warning' : undefined}>
       <td>
         <img
           src={producto.imagen}
@@ -23,6 +24,14 @@ function FilaProductoAdmin({ producto, onEliminar }) {
         <InsigniaStock stock={producto.stock} unidad={producto.unidad} />
       </td>
       <td>
+        <Button
+          variant="outline-dark"
+          size="sm"
+          className="me-2"
+          onClick={() => onEditar(producto)}
+        >
+          Editar
+        </Button>
         <Button
           variant="outline-danger"
           size="sm"

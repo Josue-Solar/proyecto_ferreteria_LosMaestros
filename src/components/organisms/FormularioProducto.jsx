@@ -1,53 +1,98 @@
-import { useState } from "react"
-import { Button, Col, Form, Row } from "react-bootstrap"
-import Formulario from "../molecules/Formulario"
-import { CATEGORIAS, UNIDADES_VENTA } from "../../data/opcionesProducto"
+import { useState } from 'react'
+import Form from 'react-bootstrap/Form'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import Button from 'react-bootstrap/Button'
 
-const valoresIniciales = { nombre: '', precio: '', categoria: '', marca: '', stock: '', descripcion: '' }
+import Formulario from '../molecules/Formulario'
+import { validarProducto } from '../../utils/validacionesProducto'
+import { CATEGORIAS, UNIDADES_VENTA } from '../../data/opcionesProducto'
+import imgGenerica from '../../assets/img/generica.jpg'
+const valoresIniciales = { nombre: '', precio: '', categoria: '', marca: '', stock: '', descripcion: '', sku: '', unidad: '', detalle: '' }
 
-function FormularioProducto({ onAgregar }) {
-    const [valores, setValores] = useState(valoresIniciales)
-    const [errores, setErrores] = useState({})
-    const [mensaje, setMensaje] = useState('')
+// Convierte un producto en los valores (texto) que muestra el formulario.
+// Los productos originales no tienen sku, marca, unidad ni stock: quedan vacíos.
+function valoresDesde(producto) {
+  if (!producto) return valoresIniciales
 
-    const manejarCambio = (e) => {
-        const { name, value } = e.target          // el name del input = la clave del estado
-        setValores({ ...valores, [name]: value })
-        setErrores({ ...errores, [name]: undefined })
-        setMensaje('')
-    }
+  return {
+    nombre: producto.nombre,
+    sku: producto.sku ?? '',
+    categoria: producto.categoria ?? '',
+    marca: producto.marca ?? '',
+    unidad: producto.unidad ?? '',
+    precio: String(producto.precio),
+    stock: producto.stock === undefined ? '' : String(producto.stock),
+    descripcion: producto.descripcion,
+  }
+}
 
-    const limpiar = () => {
-    setValores(valoresIniciales)
-    setErrores({})
-    setRegistrado('')
+
+function FormularioProducto({ productos, productoEditando, onAgregar, onActualizar, onCancelar }) {
+  const modoEdicion = Boolean(productoEditando)
+  // useState(() => ...) calcula los valores iniciales solo en el primer render
+  const [valores, setValores] = useState(() => valoresDesde(productoEditando))
+  const [errores, setErrores] = useState({})
+  const [mensaje, setMensaje] = useState('')
+
+  // Un solo manejador para todos los campos: el "name" del input
+  // coincide con la clave del estado.
+  const manejarCambio = (e) => {
+    const { name, value } = e.target
+    setValores({ ...valores, [name]: value })
+    setErrores({ ...errores, [name]: undefined })
   }
 
-    const manejarEnvio = (e) => {
-        e.preventDefault()
-        const nuevosErrores = validarProducto(valores)
-        setErrores(nuevosErrores)
-        if (Object.keys(nuevosErrores).length > 0) return   // hay errores: no seguimos
+  const limpiar = () => {
+    setValores(valoresIniciales)
+    setErrores({})
+  }
 
-        onAgregar({
-          id: `prod-${Date.now()}`, // string: useParams() siempre entrega texto
-          imagen: imgGenerica, // imagen genérica, no se suben archivos
-          nombre: valores.nombre.trim(),
-          descripcion,
-          detalle: descripcion,
-          precio: Number(valores.precio), // los inputs entregan texto
-          categoria: valores.categoria,
-          marca: valores.marca.trim(),
-          sku: valores.sku.trim().toUpperCase(),
-          unidad: valores.unidad,
-          stock: Number(valores.stock),
-        })
+  const manejarEnvio = (e) => {
+    e.preventDefault()
+    // Al editar, el SKU del propio producto no cuenta como "repetido"
+    const otrosProductos = productos.filter((p) => p.id !== productoEditando?.id)
+    const nuevosErrores = validarProducto(valores)
+    setErrores(nuevosErrores)
+    if (Object.keys(nuevosErrores).length > 0) return   // hay errores: no seguimos
 
-        setMensaje(`Producto "${valores.nombre.trim()}" agregado al catálogo`)
-        setValores(valoresIniciales)
+    const descripcion = valores.descripcion.trim()
+
+    const datos = {
+      nombre: valores.nombre.trim(),
+      descripcion,
+      precio: Number(valores.precio), // los inputs entregan texto
+      categoria: valores.categoria,
+      marca: valores.marca.trim(),
+      sku: valores.sku.trim().toUpperCase(),
+      unidad: valores.unidad,
+      stock: Number(valores.stock),
     }
+
+    if (modoEdicion) {
+      // "detalle" sigue a la descripción solo si antes eran iguales
+      // (así no se pisa el detalle largo de los productos originales)
+      const detalle =
+        productoEditando.detalle === productoEditando.descripcion
+          ? descripcion
+          : productoEditando.detalle
+
+      onActualizar(productoEditando.id, { ...datos, detalle })
+      return
+    }
+
+    onAgregar({
+      ...datos,
+      id: `prod-${Date.now()}`, // string: useParams() siempre entrega texto
+      imagen: imgGenerica, // imagen genérica, no se suben archivos
+      detalle: descripcion,
+    })
+    setValores(valoresIniciales)
+
+    setMensaje(`Producto "${valores.nombre.trim()}" agregado al catálogo`)
+  }
   
-    return (
+  return (
     <Form noValidate className="form-panel" onSubmit={manejarEnvio}>
       {mensaje && <Alert variant="success">{mensaje}</Alert>}
 
@@ -135,7 +180,7 @@ function FormularioProducto({ onAgregar }) {
       </Row>
 
       <Row>
-        <Col md={6}>
+        <Col md={4}>
           <Formulario
             className="mb-3"
             controlId="productoPrecio"
@@ -148,8 +193,6 @@ function FormularioProducto({ onAgregar }) {
             onChange={manejarCambio}
             error={errores.precio}
           />
-        </Col>
-        <Col md={6}>
           <Formulario
             className="mb-3"
             controlId="productoStock"
@@ -163,26 +206,44 @@ function FormularioProducto({ onAgregar }) {
             error={errores.stock}
           />
         </Col>
+        <Col md={8}>
+            <Formulario
+            className="mb-3"
+            controlId="productoDescripcion"
+            label="Descripción"
+            name="descripcion"
+            as="textarea"
+            rows={3}
+            placeholder="Breve descripción que se verá en la tarjeta del catálogo"
+            value={valores.descripcion}
+            onChange={manejarCambio}
+            error={errores.descripcion}
+          />
+        </Col>
       </Row>
 
       <Formulario
         className="mb-3"
-        controlId="productoDescripcion"
-        label="Descripción"
-        name="descripcion"
+        controlId="productoDetalle"
+        label="Detalle"
+        name="detalle"
         as="textarea"
         rows={3}
-        placeholder="Breve descripción que se verá en la tarjeta del catálogo"
-        value={valores.descripcion}
+        placeholder="Información detallada del producto presentado"
+        value={valores.detalle}
         onChange={manejarCambio}
-        error={errores.descripcion}
+        error={errores.detalle}
       />
 
       <Button variant="dark" type="submit" className="me-2">
-        Agregar producto
+        {modoEdicion ? 'Guardar cambios' : 'Agregar producto'}
       </Button>
-      <Button variant="secondary" type="button" onClick={limpiar}>
-        Limpiar
+      <Button
+        variant="secondary"
+        type="button"
+        onClick={modoEdicion ? onCancelar : limpiar}
+      >
+        {modoEdicion ? 'Cancelar edición' : 'Limpiar'}
       </Button>
     </Form>
   )

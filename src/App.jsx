@@ -12,6 +12,7 @@ import Perfil from './views/Perfil'
 import RutaProtegida from './routes/RutaProtegida'
 
 import { productos as productosIniciales } from './data/productos'
+import { reemplazarProducto } from './utils/listaProductos'
 import './styles/paginas.css'
 
 function App() {
@@ -25,6 +26,10 @@ function App() {
 
   const eliminarProducto = (id) => {
     setProductos((anteriores) => anteriores.filter((p) => p.id !== id))
+  }
+
+  const actualizarProducto = (id, cambios) => {
+    setProductos((anteriores) => reemplazarProducto(anteriores, id, cambios))
   }
 
   return (
@@ -51,6 +56,7 @@ function App() {
               productos={productos}
               onAgregar={agregarProducto}
               onEliminar={eliminarProducto}
+              onActualizar={actualizarProducto}
             />
           </RutaProtegida>
         }
