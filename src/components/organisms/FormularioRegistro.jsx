@@ -4,14 +4,17 @@ import Button from 'react-bootstrap/Button'
 import Alert from 'react-bootstrap/Alert'
 
 import { validarRegistro, TIPOS_CLIENTE } from '../../utils/validaciones'
+import { LISTA_COMUNAS } from '../../utils/comunasPorRegion'
 
 const valoresIniciales = {
   nombre: '',
-  edad: '',
+  apellido:'',
   telefono: '',
   correo: '',
   fechaNacimiento: '',
   tipoCliente: '',
+  region: '',
+  idRegion: '',
   comuna: '',
 }
 
@@ -19,6 +22,7 @@ function FormularioRegistro() {
   const [valores, setValores] = useState(valoresIniciales)
   const [errores, setErrores] = useState({})
   const [registrado, setRegistrado] = useState('')
+    console.log(valores)
 
   const manejarCambio = (e) => {
     const { name, value } = e.target
@@ -68,17 +72,17 @@ function FormularioRegistro() {
         <Form.Control.Feedback type="invalid">{errores.nombre}</Form.Control.Feedback>
       </Form.Group>
 
-      <Form.Group className="mb-3" controlId="registroEdad">
-        <Form.Label>Edad</Form.Label>
+      <Form.Group className="mb-3" controlId="registroNombre">
+        <Form.Label>Apellido</Form.Label>
         <Form.Control
-          type="number"
-          name="edad"
-          placeholder="Ingrese su edad"
-          value={valores.edad}
+          type="text"
+          name="apellido"
+          placeholder="Ingrese su apellido"
+          value={valores.apellido}
           onChange={manejarCambio}
-          isInvalid={!!errores.edad}
+          isInvalid={!!errores.apellido}
         />
-        <Form.Control.Feedback type="invalid">{errores.edad}</Form.Control.Feedback>
+        <Form.Control.Feedback type="invalid">{errores.apellido}</Form.Control.Feedback>
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="registroTelefono">
@@ -136,17 +140,43 @@ function FormularioRegistro() {
         </Form.Select>
         <Form.Control.Feedback type="invalid">{errores.tipoCliente}</Form.Control.Feedback>
       </Form.Group>
+      
+      <Form.Group className="mb-3" controlId="registroRegion">
+        <Form.Label>Región</Form.Label>
+        <Form.Select
+          name="idRegion"
+          value={valores.idRegion}
+          onChange={manejarCambio}
+          isInvalid={!!errores.region}
+        >
+          <option value="">Seleccione una opción</option>
+          {LISTA_COMUNAS.map((region) => (
+            <option key={region.idRegion} value={region.idRegion}>
+              {region.region}
+            </option>
+          ))}
+        </Form.Select>
+        <Form.Control.Feedback type="invalid">{errores.idRegion}</Form.Control.Feedback>
+      </Form.Group>
 
       <Form.Group className="mb-3" controlId="registroComuna">
         <Form.Label>Comuna</Form.Label>
-        <Form.Control
-          type="text"
+        <Form.Select
           name="comuna"
-          placeholder="Ej: La Serena"
           value={valores.comuna}
           onChange={manejarCambio}
           isInvalid={!!errores.comuna}
-        />
+          disabled={!valores.idRegion ? true : false}
+        >
+          <option value="">Seleccione una opción</option>
+          
+          {LISTA_COMUNAS[Number(valores.idRegion)].comunas.map((comunas) => (
+            <option key={comunas} value={comunas}>
+              {comunas}
+            </option>
+            
+          ))}
+        </Form.Select>
         <Form.Control.Feedback type="invalid">{errores.comuna}</Form.Control.Feedback>
       </Form.Group>
 

@@ -1,4 +1,5 @@
 export const TIPOS_CLIENTE = ['Particular', 'Maestro o contratista', 'Empresa constructora']
+import { LISTA_COMUNAS } from "./comunasPorRegion"
 
 // Calculo de edad en anios a partir de fecha
 export function calcularEdad(fechaTexto, hoy = new Date()) {
@@ -18,12 +19,19 @@ export function calcularEdad(fechaTexto, hoy = new Date()) {
 export function validarRegistro(valores, hoy = new Date()) {
   const errores = {}
 
-  // Nombre solo letras y espacios
+  // Nombre y apellido solo letras y espacios
   const nombre = valores.nombre.trim()
+  const apellido = valores.apellido.trim()
   if (!nombre) {
     errores.nombre = 'El nombre es obligatorio'
   } else if (!/^[A-Za-zÁÉÍÓÚÜáéíóúüÑñ\s]+$/.test(nombre)) {
     errores.nombre = 'El nombre solo debe contener letras'
+  }
+  
+  if (!apellido) {
+    errores.apellido = 'El apellido es obligatorio'
+  } else if (!/^[A-Za-zÁÉÍÓÚÜáéíóúüÑñ\s]+$/.test(nombre)) {
+    errores.apellido = 'El apellido solo debe contener letras'
   }
 
   // Edad numero entero, mayor de 18
@@ -65,14 +73,15 @@ export function validarRegistro(valores, hoy = new Date()) {
     errores.tipoCliente = 'Selecciona una opción válida'
   }
 
+  const region = valores.idRegion.trim()
+  if(!region){
+    errores.region = 'La región es obligatoria'
+  }
+  
   const comuna = valores.comuna.trim()
   if (!comuna) {
     errores.comuna = 'La comuna es obligatoria'
-  } else if (comuna.length < 3 || comuna.length > 40) {
-    errores.comuna = 'La comuna debe tener entre 3 y 40 caracteres'
-  } else if (!/^[A-Za-zÁÉÍÓÚÜáéíóúüÑñ\s]+$/.test(comuna)) {
-    errores.comuna = 'La comuna solo debe contener letras'
-  }
+  } 
 
   return errores
 }
