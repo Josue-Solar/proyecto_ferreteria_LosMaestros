@@ -6,8 +6,6 @@ import Seccion from '../components/molecules/Seccion'
 import GaleriaProductos from '../components/organisms/GaleriaProductos'
 
 import { itemsMenu } from '../data/itemsMenu'
-import { productos } from '../data/productos'
-
 // Ids de los productos que se muestran como "destacados" en el inicio.
 // Los datos viven en un solo lugar (data/productos.js); aquí solo elegimos cuáles mostrar.
 const IDS_DESTACADOS = [
@@ -16,7 +14,7 @@ const IDS_DESTACADOS = [
   'serrucho-tradicional',
 ]
 
-function Home() {
+function Home({ productos }) {
   const destacados = productos.filter((p) => IDS_DESTACADOS.includes(p.id))
 
   return (

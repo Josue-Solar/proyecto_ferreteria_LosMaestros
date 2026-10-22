@@ -33,7 +33,6 @@ function FormularioProducto({ productos, productoEditando, onAgregar, onActualiz
   // useState(() => ...) calcula los valores iniciales solo en el primer render
   const [valores, setValores] = useState(() => valoresDesde(productoEditando))
   const [errores, setErrores] = useState({})
-  const [mensaje, setMensaje] = useState('')
 
   // Un solo manejador para todos los campos: el "name" del input
   // coincide con la clave del estado.
@@ -89,12 +88,10 @@ function FormularioProducto({ productos, productoEditando, onAgregar, onActualiz
     })
     setValores(valoresIniciales)
 
-    setMensaje(`Producto "${valores.nombre.trim()}" agregado al catálogo`)
   }
   
   return (
     <Form noValidate className="form-panel" onSubmit={manejarEnvio}>
-      {mensaje && <Alert variant="success">{mensaje}</Alert>}
 
       <Row>
         <Col md={8}>

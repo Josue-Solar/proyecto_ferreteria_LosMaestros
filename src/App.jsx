@@ -13,23 +13,44 @@ import RutaProtegida from './routes/RutaProtegida'
 
 import { productos as productosIniciales } from './data/productos'
 import { reemplazarProducto } from './utils/listaProductos'
+import {
+  guardarProductos,
+  obtenerProductos,
+  borrarProductosGuardados,
+} from './utils/almacenProductos'
+import imgGenerica from './assets/img/generica.jpg'
 import './styles/paginas.css'
 
 function App() {
   // El estado de los productos vive aquí para que el panel y el catálogo
   // vean la misma lista (se pasa hacia abajo por props).
-  const [productos, setProductos] = useState(productosIniciales)
+  // Al abrir la página se lee lo guardado en localStorage (si hay algo).
+  const [productos, setProductos] = useState(() =>
+    obtenerProductos(productosIniciales, imgGenerica),
+  )
+
+  // Cambia la lista en pantalla Y la guarda en localStorage
+  const guardarLista = (nuevaLista) => {
+    setProductos(nuevaLista)
+    guardarProductos(nuevaLista)
+  }
 
   const agregarProducto = (nuevo) => {
-    setProductos((anteriores) => [...anteriores, nuevo])
+    guardarLista([...productos, nuevo])
   }
 
   const eliminarProducto = (id) => {
-    setProductos((anteriores) => anteriores.filter((p) => p.id !== id))
+    guardarLista(productos.filter((p) => p.id !== id))
   }
 
   const actualizarProducto = (id, cambios) => {
-    setProductos((anteriores) => reemplazarProducto(anteriores, id, cambios))
+    guardarLista(reemplazarProducto(productos, id, cambios))
+  }
+
+  // Vuelve a los productos originales y borra lo guardado
+  const restablecerProductos = () => {
+    borrarProductosGuardados()
+    setProductos(productosIniciales)
   }
 
   return (
@@ -57,6 +78,7 @@ function App() {
               onAgregar={agregarProducto}
               onEliminar={eliminarProducto}
               onActualizar={actualizarProducto}
+              onRestablecer={restablecerProductos}
             />
           </RutaProtegida>
         }

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Alert from 'react-bootstrap/Alert'
+import Button from 'react-bootstrap/Button'
 
 import PlantillaPagina from '../components/templates/PlantillaPagina'
 import Seccion from '../components/molecules/Seccion'
@@ -7,7 +8,7 @@ import FormularioProducto from '../components/organisms/FormularioProducto'
 import TablaProductoAdmin from '../components/organisms/TablaProductoAdmin'
 import BotonLink from '../components/atoms/BotonLink'
 
-function PanelControl({ productos, onAgregar, onActualizar, onEliminar }) {
+function PanelControl({ productos, onAgregar, onActualizar, onEliminar, onRestablecer }) {
   // Producto que se está editando (null = el formulario crea uno nuevo)
   const [productoEditando, setProductoEditando] = useState(null)
   const [mensaje, setMensaje] = useState('')
@@ -35,6 +36,12 @@ function PanelControl({ productos, onAgregar, onActualizar, onEliminar }) {
     if (productoEditando?.id === id) {
       setProductoEditando(null)
     }
+  }
+
+  const manejarRestablecer = () => {
+    onRestablecer()
+    setProductoEditando(null)
+    setMensaje('Catálogo restablecido a los productos originales')
   }
 
   return (
@@ -74,7 +81,10 @@ function PanelControl({ productos, onAgregar, onActualizar, onEliminar }) {
           onEliminar={manejarEliminar}
         />
         <p className="titulo">
-          <BotonLink to="/productos">Ver catálogo público</BotonLink>
+          <BotonLink to="/productos">Ver catálogo público</BotonLink>{' '}
+          <Button variant="outline-secondary" size="sm" onClick={manejarRestablecer}>
+            Restablecer catálogo original
+          </Button>
         </p>
       </Seccion>
     </PlantillaPagina>
