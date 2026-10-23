@@ -24,6 +24,7 @@ function valoresDesde(producto) {
     precio: String(producto.precio),
     stock: producto.stock === undefined ? '' : String(producto.stock),
     descripcion: producto.descripcion,
+    detalle: producto.detalle ?? ''
   }
 }
 
@@ -66,6 +67,7 @@ function FormularioProducto({ productos, productoEditando, onAgregar, onActualiz
       sku: valores.sku.trim().toUpperCase(),
       unidad: valores.unidad,
       stock: Number(valores.stock),
+      detalle
     }
 
     if (modoEdicion) {

@@ -66,4 +66,4 @@ src/
 
 ## Equipo
 
-Josue Solar · karmey37 · Fabian Estay — DuocUC.
+Josue Solar · Matías Valdebenito · Fabian Estay — DuocUC.
