@@ -4,7 +4,7 @@
 ========================================= */
 
 body {
-    font-family: 'Trebuchet MS', Arial, sans-serif;
+    font-family: 'Barlow', 'Trebuchet MS', Arial, sans-serif;
 
     background-color: #dedbd6;
 
@@ -13,6 +13,10 @@ body {
     color: #302e2b;
 }
 
+h1, h2, h3, .titulo h1 {
+    font-family: 'Barlow Condensed', 'Barlow', Arial, sans-serif;
+    letter-spacing: 0.5px;
+}
 
 /* ENCABEZADO y Cosas del la clase y reciclaje */ 
 

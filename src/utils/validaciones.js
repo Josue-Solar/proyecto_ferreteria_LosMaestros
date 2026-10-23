@@ -30,18 +30,21 @@ export function validarRegistro(valores, hoy = new Date()) {
   
   if (!apellido) {
     errores.apellido = 'El apellido es obligatorio'
-  } else if (!/^[A-Za-zÁÉÍÓÚÜáéíóúüÑñ\s]+$/.test(nombre)) {
+  } else if (!/^[A-Za-zÁÉÍÓÚÜáéíóúüÑñ\s]+$/.test(apellido)) {
     errores.apellido = 'El apellido solo debe contener letras'
   }
 
-  // Edad numero entero, mayor de 18
-  const edad = Number(valores.edad)
-  if (!valores.edad) {
-    errores.edad = 'La edad es obligatoria'
-  } else if (!Number.isInteger(edad) || edad > 120) {
-    errores.edad = 'Ingresa una edad válida'
-  } else if (edad < 18) {
-    errores.edad = 'Debes ser mayor de 18 años para registrarte'
+  // Contraseña: mínimo 8 caracteres, con mayúscula, minúscula y número
+  const contrasenia = valores.contrasenia
+  if (!contrasenia) {
+    errores.contrasenia = 'La contraseña es obligatoria'
+  } else if (
+    contrasenia.length < 8 ||
+    !/[A-Z]/.test(contrasenia) ||
+    !/[a-z]/.test(contrasenia) ||
+    !/\d/.test(contrasenia)
+  ) {
+    errores.contrasenia = 'Mínimo 8 caracteres, con mayúscula, minúscula y número'
   }
 
   // Telefono con el formato chile del +56 y 9 digitos
@@ -82,6 +85,33 @@ export function validarRegistro(valores, hoy = new Date()) {
   if (!comuna) {
     errores.comuna = 'La comuna es obligatoria'
   } 
+
+  return errores
+}
+
+// Validación del formulario "Editar perfil" (nombre, apellido y teléfono opcional)
+export function validarPerfil(valores) {
+  const errores = {}
+  const soloLetras = /^[A-Za-zÁÉÍÓÚÜáéíóúüÑñ\s]+$/
+
+  const nombre = valores.nombre.trim()
+  if (!nombre) {
+    errores.nombre = 'El nombre es obligatorio'
+  } else if (!soloLetras.test(nombre)) {
+    errores.nombre = 'El nombre solo debe contener letras'
+  }
+
+  const apellido = valores.apellido.trim()
+  if (!apellido) {
+    errores.apellido = 'El apellido es obligatorio'
+  } else if (!soloLetras.test(apellido)) {
+    errores.apellido = 'El apellido solo debe contener letras'
+  }
+
+  // El teléfono puede quedar vacío, pero si se escribe debe tener el formato chileno
+  if (valores.telefono && !/^\+56\d{9}$/.test(valores.telefono)) {
+    errores.telefono = 'Debe llevar el prefijo +56 y 9 dígitos. Ejemplo: +56912345678'
+  }
 
   return errores
 }

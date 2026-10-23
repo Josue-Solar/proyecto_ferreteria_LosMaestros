@@ -4,17 +4,17 @@ import Button from 'react-bootstrap/Button'
 import Alert from 'react-bootstrap/Alert'
 
 import { validarRegistro, TIPOS_CLIENTE } from '../../utils/validaciones'
+import { registrarUsuario } from '../../utils/usuarios'
 import { LISTA_COMUNAS } from '../../utils/comunasPorRegion'
 
 const valoresIniciales = {
   nombre: '',
-  apellido:'',
+  apellido: '',
   telefono: '',
   correo: '',
   contrasenia: '',
   fechaNacimiento: '',
   tipoCliente: '',
-  region: '',
   idRegion: '',
   comuna: '',
 }
@@ -23,11 +23,18 @@ function FormularioRegistro() {
   const [valores, setValores] = useState(valoresIniciales)
   const [errores, setErrores] = useState({})
   const [registrado, setRegistrado] = useState('')
-    console.log(valores)
+
+  // Región elegida (undefined si todavía no se elige ninguna)
+  const regionElegida = LISTA_COMUNAS.find((r) => String(r.idRegion) === valores.idRegion)
 
   const manejarCambio = (e) => {
     const { name, value } = e.target
-    setValores({ ...valores, [name]: value })
+    const nuevos = { ...valores, [name]: value }
+
+    // Si cambia la región, la comuna anterior ya no corresponde
+    if (name === 'idRegion') nuevos.comuna = ''
+
+    setValores(nuevos)
     setErrores({ ...errores, [name]: undefined })
     setRegistrado('')
   }
@@ -36,14 +43,24 @@ function FormularioRegistro() {
     e.preventDefault()
 
     const nuevosErrores = validarRegistro(valores)
-    setErrores(nuevosErrores)
-
-    if (Object.keys(nuevosErrores).length === 0) {
-      setRegistrado(valores.nombre.trim())
-      setValores(valoresIniciales)
-    } else {
+    if (Object.keys(nuevosErrores).length > 0) {
+      setErrores(nuevosErrores)
       setRegistrado('')
+      return
     }
+
+    // Todo válido: se guarda el usuario en localStorage
+    const resultado = registrarUsuario({ ...valores, region: regionElegida.region })
+
+    if (!resultado.ok) {
+      setErrores({ correo: resultado.error })
+      setRegistrado('')
+      return
+    }
+
+    setErrores({})
+    setRegistrado(valores.nombre.trim())
+    setValores(valoresIniciales)
   }
 
   const limpiar = () => {
@@ -73,7 +90,7 @@ function FormularioRegistro() {
         <Form.Control.Feedback type="invalid">{errores.nombre}</Form.Control.Feedback>
       </Form.Group>
 
-      <Form.Group className="mb-3" controlId="registroNombre">
+      <Form.Group className="mb-3" controlId="registroApellido">
         <Form.Label>Apellido</Form.Label>
         <Form.Control
           type="text"
@@ -171,7 +188,7 @@ function FormularioRegistro() {
             </option>
           ))}
         </Form.Select>
-        <Form.Control.Feedback type="invalid">{errores.idRegion}</Form.Control.Feedback>
+        <Form.Control.Feedback type="invalid">{errores.region}</Form.Control.Feedback>
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="registroComuna">

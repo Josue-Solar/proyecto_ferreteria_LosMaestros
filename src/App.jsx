@@ -74,7 +74,7 @@ function App() {
       <Route
         path="/panel"
         element={
-          <RutaProtegida>
+          <RutaProtegida rol="Administrador">
             <PanelControl
               productos={productos}
               onAgregar={agregarProducto}

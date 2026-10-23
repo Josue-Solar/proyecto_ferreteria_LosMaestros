@@ -9,7 +9,7 @@ function TarjetaProducto({ id, imagen, nombre, descripcion, precio }) {
   return (
     <article className="tarjeta">
       <div className="espacio-imagen">
-        <Link to={`/producto/${id}`}>
+        <Link to={`/producto/${id}`} className="linkProducto">
           <img src={imagen} alt={nombre} />
           {nombre}
         </Link>

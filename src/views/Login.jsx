@@ -7,7 +7,7 @@ import Alert from 'react-bootstrap/Alert'
 import PlantillaPagina from '../components/templates/PlantillaPagina'
 import Seccion from '../components/molecules/Seccion'
 import Formulario from '../components/molecules/Formulario'
-import { iniciarSesion } from '../utils/sesion'
+import { iniciarSesion, obtenerSesion } from '../utils/sesion'
 
 function Login() {
   const navigate = useNavigate()
@@ -15,9 +15,6 @@ function Login() {
   const [usuario, setUsuario] = useState('')
   const [clave, setClave] = useState('')
   const [error, setError] = useState('')
-
-  // Si RutaProtegida nos envió aquí, volvemos a la página que se quería ver
-  const destino = location.state?.desde ?? '/panel'
 
   const manejarEnvio = (e) => {
     e.preventDefault()
@@ -28,6 +25,8 @@ function Login() {
     }
 
     if (iniciarSesion(usuario, clave)) {
+      const esAdmin = obtenerSesion().rol === 'Administrador'
+      const destino = location.state?.desde ?? (esAdmin ? '/panel' : '/perfil')
       navigate(destino, { replace: true })
     } else {
       setError('Usuario o contraseña incorrectos')
@@ -45,9 +44,9 @@ function Login() {
           <Formulario
             className="mb-3"
             controlId="loginUsuario"
-            label="Nombre de usuario"
+            label="Ingresa con tu correo (clientes) o con tu usuario (administrador)."
             type="text"
-            placeholder="Ingrese su usuario"
+            placeholder="Correo o usuario"
             value={usuario}
             onChange={(e) => { setUsuario(e.target.value); setError('') }}
           />

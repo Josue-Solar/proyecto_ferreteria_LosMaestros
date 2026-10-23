@@ -1,13 +1,18 @@
 import { Navigate, useLocation } from 'react-router-dom'
-import { obtenerSesion } from '../utils/sesion'
+import { obtenerUsuarioActivo } from '../utils/sesion'
 
-function RutaProtegida({ children }) {
+function RutaProtegida({ children, rol }) {
   const location = useLocation()
+  const usuario = obtenerUsuarioActivo()
 
-  // Guardamos la ruta pedida en "state" para que Login pueda devolvernos ahí
-  if (!obtenerSesion()) {
+  if (!usuario) {
     return <Navigate to="/login" replace state={{ desde: location.pathname }} />
   }
+
+  if (rol && usuario.rol !== rol) {
+    return <Navigate to="/perfil" replace />
+  }
+
   return children
 }
 

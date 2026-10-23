@@ -20,3 +20,41 @@
     --bs-btn-active-border-color: #ffc400;
     color: #302e2b;
 }
+
+/* Foto de perfil (o iniciales si no hay foto) */
+.avatar-perfil {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto 10px;
+    display: block;
+}
+
+/* Más específico que ".tarjeta img" de App.css (que estira las imágenes a todo el ancho) */
+.tarjeta.tarjeta-detalle img.avatar-perfil {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: transparent;
+}
+
+.avatar-iniciales {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    font-weight: bold;
+    background-color: #e0a800;
+    color: #302e2b;
+}
+
+.linkProducto {
+    color: aliceblue;
+    transition: color 0.3s ease;
+}
+
+.linkProducto:hover{
+    color: #e0a800;
+}

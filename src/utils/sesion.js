@@ -1,31 +1,20 @@
+import { buscarUsuario } from './usuarios'
+
 const SESION_KEY = 'sesionFerreteria'
 
-// Credenciales estáticas: el enunciado pide validar contra datos fijos
-const ADMIN = {
-  usuario: 'admin',
-  clave: 'maestros2026',
-  nombre: 'Administrador Los Maestros',
-  correo: 'losmaestrosferreteria@gmail.com',
-  rol: 'Administrador',
-  cargo: 'Encargado de inventario',
-  sucursal: 'La Serena',
-}
+// En la sesión solo se guarda QUIÉN es y su rol.
+// La clave NUNCA va en la sesión y los datos del perfil se leen desde usuarios.js
+export function iniciarSesion(identificador, clave) {
+  const usuario = buscarUsuario(identificador)
 
-export function iniciarSesion(usuario, clave) {
-  if (usuario.trim() !== ADMIN.usuario || clave !== ADMIN.clave) {
+  if (!usuario || usuario.clave !== clave) {
     return false
   }
 
-  // Se guardan solo los datos públicos: la clave NUNCA va en la sesión
-  const sesion = {
-    usuario: ADMIN.usuario,
-    nombre: ADMIN.nombre,
-    correo: ADMIN.correo,
-    rol: ADMIN.rol,
-    cargo: ADMIN.cargo,
-    sucursal: ADMIN.sucursal,
-  }
-  localStorage.setItem(SESION_KEY, JSON.stringify(sesion))
+  localStorage.setItem(
+    SESION_KEY,
+    JSON.stringify({ usuario: usuario.usuario, rol: usuario.rol }),
+  )
   return true
 }
 
@@ -36,6 +25,12 @@ export function obtenerSesion() {
   } catch {
     return null
   }
+}
+
+// Datos completos del usuario con sesión iniciada (o null)
+export function obtenerUsuarioActivo() {
+  const sesion = obtenerSesion()
+  return sesion ? buscarUsuario(sesion.usuario) : null
 }
 
 export function cerrarSesion() {
