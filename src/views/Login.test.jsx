@@ -18,7 +18,7 @@ const renderizar = () =>
   )
 
 const completar = (usuario, clave) => {
-  fireEvent.change(screen.getByLabelText('Nombre de usuario'), { target: { value: usuario } })
+  fireEvent.change(screen.getByLabelText(/correo/i), { target: { value: usuario } })
   fireEvent.change(screen.getByLabelText('Contraseña'), { target: { value: clave } })
   fireEvent.click(screen.getByRole('button', { name: 'Ingresar' }))
 }
@@ -28,7 +28,7 @@ describe('Login', () => {
 
   it('Debe mostrar los campos usuario y contraseña (oculta)', () => {
     renderizar()
-    expect(screen.getByLabelText('Nombre de usuario')).toBeTruthy()
+    expect(screen.getByLabelText(/correo/i)).toBeTruthy()
     expect(screen.getByLabelText('Contraseña').getAttribute('type')).toBe('password')
   })
 
@@ -49,7 +49,7 @@ describe('Login', () => {
   it('Debe quitar el error al volver a escribir', () => {
     renderizar()
     completar('admin', 'mala')
-    fireEvent.change(screen.getByLabelText('Nombre de usuario'), { target: { value: 'admi' } })
+    fireEvent.change(screen.getByLabelText(/correo/i), { target: { value: 'admi' } })
     expect(screen.queryByText('Usuario o contraseña incorrectos')).toBeNull()
   })
 })

@@ -1,12 +1,12 @@
 # Plan de Pruebas Unitarias
 
-**Nombre del Estudiante:** Victor Andrade
+**Nombre del Estudiante:** Fabián Estay, Matías Valdebenito, Josué Solar
 <br />
 
 **Componente / Módulo Principal:** TarjetaProducto, FormularioRegistro, ItemCarrito, Login, Carrito.
 <br />
 
-**Fecha:** 19-10-2026
+**Fecha:** 23-10-2026
 
 | ID         | Componente<br>_(describe)_ | Caso de Prueba<br>_(it / test)_                                              | Preparación<br>_(Arrange: props, mocks)_                                                                                                                                          | Acción<br>_(Act: fireEvent, render)_                                                                                                                                   | Resultado Esperado<br>_(Assert: expect)_                                                                                      | Estado<br>_(Pasa / Falla)_ |
 | :--------- | :------------------------- | :--------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------- | :------------------------- |

@@ -1,11 +1,13 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, beforeEach } from 'vitest';
 import FormularioRegistro from './FormularioRegistro';
 
 // Datos válidos de ejemplo (ajústalos si tu validarRegistro pide otras reglas)
 const datosValidos = {
   nombre: 'Pepito',
-  edad: '26',
+  apellido: 'Pérez',
+  contrasenia: 'Admin.1234',   // mínimo 8, con mayúscula, minúscula y número
+  idRegion: '4',               // Coquimbo, la región que contiene "La Serena"
   telefono: '+56912345678',
   correo: 'pepito@gmail.com',
   fechaNacimiento: '2000-01-15',
@@ -16,7 +18,9 @@ const datosValidos = {
 // Función auxiliar: escribe en todos los campos del formulario
 const llenarFormulario = (datos) => {
   fireEvent.change(screen.getByLabelText(/Nombre/i), { target: { value: datos.nombre } });
-  fireEvent.change(screen.getByLabelText(/Edad/i), { target: { value: datos.edad } });
+  fireEvent.change(screen.getByLabelText(/Apellido/i), { target: {value: datos.apellido}});
+  fireEvent.change(screen.getByLabelText(/Cree contraseña/i), { target: {value: datos.contrasenia}});
+  fireEvent.change(screen.getByLabelText(/Región/i), { target: {value: datos.idRegion}});
   fireEvent.change(screen.getByLabelText(/Teléfono/i), { target: { value: datos.telefono } });
   fireEvent.change(screen.getByLabelText(/Correo electrónico/i), { target: { value: datos.correo } });
   fireEvent.change(screen.getByLabelText(/Fecha de nacimiento/i), { target: { value: datos.fechaNacimiento } });
@@ -27,7 +31,7 @@ const llenarFormulario = (datos) => {
 
 
 describe('FormularioRegistro', () => {
-
+  beforeEach(() => localStorage.clear());
   // CASO 1: Renderizado
   it('Debe mostrar todos los campos y los botones del formulario', () => {
     // ARRANGE
@@ -36,7 +40,6 @@ describe('FormularioRegistro', () => {
     // ASSERT
     const inputNombre = screen.getByLabelText(/Nombre/i);
     expect(screen.getByLabelText(/Nombre/i)).toBeTruthy();
-    expect(screen.getByLabelText(/Edad/i)).toBeTruthy();
     expect(screen.getByLabelText(/Teléfono/i)).toBeTruthy();
     expect(screen.getByLabelText(/Correo electrónico/i)).toBeTruthy();
     expect(screen.getByLabelText(/Fecha de nacimiento/i)).toBeTruthy();
@@ -67,7 +70,6 @@ describe('FormularioRegistro', () => {
 
     // ASSERT
     expect(screen.getByLabelText(/Nombre/i).value).toBe('Pepito');
-    expect(screen.getByLabelText(/Edad/i).value).toBe('26');
     expect(screen.getByLabelText(/Teléfono/i).value).toBe('+56912345678');
     expect(screen.getByLabelText(/Correo electrónico/i).value).toBe('pepito@gmail.com');
     expect(screen.getByLabelText(/Fecha de nacimiento/i).value).toBe('2000-01-15');
