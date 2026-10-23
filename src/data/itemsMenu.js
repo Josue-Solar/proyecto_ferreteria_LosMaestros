@@ -5,5 +5,4 @@ export const itemsMenu = [
   { href: '/login', label: 'Iniciar Sesión' },
   { href: '/carrito', label: '🛒 Carrito' },
   { href: '/perfil', label: 'Mi Perfil' },
-  { href: '/panel', label: 'Panel' },
 ]

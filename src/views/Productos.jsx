@@ -1,18 +1,16 @@
 import { useState } from 'react'
 
-import Header from '../components/organisms/Header'
-import Footer from '../components/organisms/Footer'
 import Seccion from '../components/molecules/Seccion'
 import GaleriaProductos from '../components/organisms/GaleriaProductos'
 import BarraFiltros from '../components/molecules/BarraFiltros'
 
-import { itemsMenu } from '../data/itemsMenu'
 import { useFavoritos } from '../context/FavoritosContext'
 import {
   FILTROS_INICIALES,
   filtrarProductos,
   obtenerCategorias,
 } from '../utils/filtros'
+import PlantillaPagina from '../components/templates/PlantillaPagina'
 
 function Productos({ productos }) {
   const [filtros, setFiltros] = useState(FILTROS_INICIALES)
@@ -31,11 +29,7 @@ function Productos({ productos }) {
 
   return (
     <>
-      <Header
-        titulo="Ferretería Los Maestros"
-        subtitulo="Materiales de construcción, herramientas y ferretería general"
-        itemsMenu={itemsMenu}
-      />
+      <PlantillaPagina>
 
       <main id="contenido">
         <Seccion id="catalogo" titulo="Nuestros productos">
@@ -64,8 +58,7 @@ function Productos({ productos }) {
           )}
         </Seccion>
       </main>
-
-      <Footer />
+      </PlantillaPagina>  
     </>
   )
 }

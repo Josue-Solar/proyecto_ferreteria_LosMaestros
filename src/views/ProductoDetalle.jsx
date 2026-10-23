@@ -1,11 +1,9 @@
 import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 
-import Header from '../components/organisms/Header'
-import Footer from '../components/organisms/Footer'
 import Seccion from '../components/molecules/Seccion'
+import PlantillaPagina from '../components/templates/PlantillaPagina'
 
-import { itemsMenu } from '../data/itemsMenu'
 import { agregarAlCarrito } from '../utils/carrito'
 
 function ProductoDetalle({ productos }) {
@@ -27,11 +25,7 @@ function ProductoDetalle({ productos }) {
 
   return (
     <>
-      <Header
-        titulo="Ferretería Los Maestros"
-        subtitulo="Materiales de construcción, herramientas y ferretería general"
-        itemsMenu={itemsMenu}
-      />
+      <PlantillaPagina>
 
       <main id="contenido">
         <Seccion id="detalle-producto" titulo="Detalle de producto">
@@ -87,7 +81,7 @@ function ProductoDetalle({ productos }) {
         </Seccion>
       </main>
 
-      <Footer />
+      </PlantillaPagina>
     </>
   )
 }

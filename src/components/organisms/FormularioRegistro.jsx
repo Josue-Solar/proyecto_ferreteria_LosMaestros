@@ -188,7 +188,7 @@ function FormularioRegistro() {
             </option>
           ))}
         </Form.Select>
-        <Form.Control.Feedback type="invalid">{errores.region}</Form.Control.Feedback>
+        <Form.Control.Feedback type="invalid">{errores.idRegion}</Form.Control.Feedback>
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="registroComuna">

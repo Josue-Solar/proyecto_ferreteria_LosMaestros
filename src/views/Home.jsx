@@ -1,11 +1,9 @@
 import { Link } from 'react-router-dom'
 
-import Header from '../components/organisms/Header'
-import Footer from '../components/organisms/Footer'
 import Seccion from '../components/molecules/Seccion'
 import GaleriaProductos from '../components/organisms/GaleriaProductos'
 
-import { itemsMenu } from '../data/itemsMenu'
+import PlantillaPagina from '../components/templates/PlantillaPagina'
 // Ids de los productos que se muestran como "destacados" en el inicio.
 // Los datos viven en un solo lugar (data/productos.js); aquí solo elegimos cuáles mostrar.
 const IDS_DESTACADOS = [
@@ -19,11 +17,7 @@ function Home({ productos }) {
 
   return (
     <>
-      <Header
-        titulo="Ferretería Los Maestros"
-        subtitulo="Materiales de construcción, herramientas y ferretería general"
-        itemsMenu={itemsMenu}
-      />
+      <PlantillaPagina>
 
       <main id="contenido">
         <Seccion id="inicio" titulo="Bienvenido">
@@ -44,8 +38,7 @@ function Home({ productos }) {
           </p>
         </Seccion>
       </main>
-
-      <Footer />
+      </PlantillaPagina>
     </>
   )
 }
